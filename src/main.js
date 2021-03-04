@@ -7,7 +7,7 @@ import 'assets/fonts/iconfont.css'
 // 导入全局样式表
 import 'assets/CSS/global.css'
 // 导入axios配置
-import {} from '@/network/base'
+import {} from '@/network/base.js'
 Vue.config.productionTip = false
 new Vue({
   router,
