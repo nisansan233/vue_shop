@@ -4,13 +4,13 @@
     <div class="toggle-button" @click="toggleCollapse">|||</div>
     <!-- 侧边栏菜单区域 -->
     <el-menu background-color="#333744" text-color="#fff" active-text-color="#39C5BB" :unique-opened="true"
-      :collapse="isCollapse" :collapse-transition="false" :router="true" :default-active="$route.path">
+      :collapse="isCollapse" :collapse-transition="false" :router="true" :default-active="this.$route.path">
       <!-- 一级菜单 -->
       <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
         <!-- 一级菜单的模板区 -->
         <template slot="title">
           <!-- 图标 -->
-          <i :class="iconsObj[item.id]"></i>
+          <i class="iconsObj[item.id]"></i>
           <!-- 文本 -->
           <span>{{item.authName}}</span>
         </template>

@@ -45,7 +45,7 @@ export default {
         {
           min: 3,
           max: 10,
-          message: '长度在 3 到 10 个字符',
+          message: '用户名的长度在 3 到 10 个字符之间',
           trigger: 'blur'
         }
         ],
