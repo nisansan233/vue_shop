@@ -10,7 +10,11 @@ export default new Vuex.Store({
   state: {
     userList: [],
     total: 0,
-    
+     // 这是登录表单的数据绑定对象
+     loginForm: {
+      username: 'admin',
+      password: '123456'
+    },
     queryInfo: {
       query: '',
       // 当前的页数

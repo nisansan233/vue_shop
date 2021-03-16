@@ -10,7 +10,7 @@
         <!-- 一级菜单的模板区 -->
         <template slot="title">
           <!-- 图标 -->
-          <i class="iconsObj[item.id]"></i>
+          <i :class="iconsObj[item.id]"></i>
           <!-- 文本 -->
           <span>{{item.authName}}</span>
         </template>

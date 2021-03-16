@@ -1,6 +1,6 @@
 <template>
 
-    <el-main>
+    <el-main >
       <!-- 路由占位符 -->
       <router-view></router-view>
     </el-main>
@@ -18,6 +18,7 @@
 <style lang="less" scoped>
   .el-main {
     background-color: #eaedf1;
+    
   }
 
 </style>

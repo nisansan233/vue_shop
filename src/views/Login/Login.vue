@@ -6,7 +6,7 @@
         <img src="~assets/logo.png" alt="" />
       </div>
       <!-- 登录表单区域 -->
-      <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" label-width="0px" class="login_form">
+      <el-form ref="loginFormRef" :model="this.loginForm" :rules="loginFormRules" label-width="0px" class="login_form">
         <!-- 用户名 -->
         <el-form-item prop="username">
           <el-input v-model="loginForm.username" prefix-icon="iconfont icon-user"></el-input>
@@ -84,6 +84,7 @@ export default {
           // 1.2 token 只应在当前网站打开期间生效,所以将token 保存在sessionStorange 中
           // console.log(res)
           window.sessionStorage.setItem('token', res.data.data.token)
+           
           //  2. 通过编程式导航跳转到后台主页,路由地址必须是 /home
           this.$router.push('/home')
         })
@@ -150,6 +151,7 @@ export default {
 
   .btns {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    
   }
 </style>
