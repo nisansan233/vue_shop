@@ -119,7 +119,12 @@
     </el-dialog>
 
     <!-- 分配角色对话框 -->
-    <el-dialog title="分配角色" :visible.sync="setRoleDialogVisible" width="50%" @close="setRoleDialogClosed">
+    <el-dialog
+      title="分配角色"
+      :visible.sync="setRoleDialogVisible"
+      width="50%"
+      @close="setRoleDialogClosed"
+    >
       <div>
         <p>当前的用户: {{userInfo.username}}</p>
         <p>当前的角色: {{userInfo.role_name}}</p>
@@ -232,7 +237,7 @@ export default {
       // 所有角色列表
       rolesList: [],
       // 已选中的角色
-      selectedRoleId:''
+      selectedRoleId: '',
     }
   },
   created() {
@@ -380,26 +385,28 @@ export default {
       this.setRoleDialogVisible = true
     },
     // 分配角色
-    saveRoleInfo(){
-      if(!this.selectedRoleId){
+    saveRoleInfo() {
+      if (!this.selectedRoleId) {
         return this.$message.error('请选择要分配的角色!')
       }
-      this.$axios.put(`users/${this.userInfo.id}/role`,{
-        rid:this.selectedRoleId
-      }).then(res=>{
-        if(res.data.meta.status!=200)
-        { console.log(res);
-          return this.$message.error('分配角色失败!')
-        }
-        this.$message.success('分配角色成功')
-        this.getUserList()
-        this.setRoleDialogVisible=false
-      })
+      this.$axios
+        .put(`users/${this.userInfo.id}/role`, {
+          rid: this.selectedRoleId,
+        })
+        .then((res) => {
+          if (res.data.meta.status != 200) {
+            console.log(res)
+            return this.$message.error('分配角色失败!')
+          }
+          this.$message.success('分配角色成功')
+          this.getUserList()
+          this.setRoleDialogVisible = false
+        })
     },
-    setRoleDialogClosed(){
-      this.userInfo={}
-      this.selectedRoleId=''
-    }
+    setRoleDialogClosed() {
+      this.userInfo = {}
+      this.selectedRoleId = ''
+    },
   },
 }
 </script>

@@ -11,6 +11,9 @@ import 'assets/CSS/global.css'
 import {} from '@/network/base.js'
 
 import store from './store'
+import TreeTable from 'vue-table-with-tree-grid'
+
+Vue.component('tree-table',TreeTable)
 Vue.config.productionTip = false
 new Vue({
   router,
