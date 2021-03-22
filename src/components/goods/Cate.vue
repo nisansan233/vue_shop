@@ -160,7 +160,7 @@
 </template>
 
 <script>
-import Breadcrumb from '@components/goods/Breadcrumb'
+import Breadcrumb from 'components/goods/Breadcrumb/breadcrumb.vue'
 export default {
   components: {
     Breadcrumb
@@ -378,8 +378,8 @@ export default {
           if (res !== 'confirm') {
             return this.$message.info('已取消删除!')
           }
-          this.$axios.delete('categories/' + id).then((res) => {
-            if (res.data.meta.status != 200) {
+          this.$axios.delete('categories/' + id).then((result) => {
+            if (result.data.meta.status != 200) {
               return this.$message.error('删除用户失败!')
             }
             this.$message.success('删除用户成功!')
