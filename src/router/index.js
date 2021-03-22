@@ -4,9 +4,9 @@ const Home = () => import('views/Home/Home')
 const Login = () => import('views/Login/Login')
 const Welcome = () => import('components/Welcome/Welcome')
 const Users = () => import('components/user/User')
-const Rights = () => import('components/power/Rights')
+const Rights = () => import('components/power/Rights/Rights')
 const Roles = () => import('components/power/Roles/roles')
-const Cate = () => import('components/goods/Cate')
+const Cate = () => import('components/goods/Cate/Cate')
 Vue.use(VueRouter)
 
 const routes = [{

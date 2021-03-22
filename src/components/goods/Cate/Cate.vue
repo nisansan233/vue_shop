@@ -160,7 +160,7 @@
 </template>
 
 <script>
-import Breadcrumb from 'components/goods/Breadcrumb/breadcrumb.vue'
+import Breadcrumb from 'components/goods/Cate/Breadcrumb/breadcrumb.vue'
 export default {
   components: {
     Breadcrumb

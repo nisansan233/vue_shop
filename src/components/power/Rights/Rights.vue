@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import Breadcrumb from 'components/power/Breadcrumb/breadcrumb'
+import Breadcrumb from 'components/power/Rights/Breadcrumb/breadcrumb'
 export default {
   components: {
     Breadcrumb,
