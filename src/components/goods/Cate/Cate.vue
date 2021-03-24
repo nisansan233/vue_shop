@@ -380,9 +380,9 @@ export default {
           }
           this.$axios.delete('categories/' + id).then((result) => {
             if (result.data.meta.status != 200) {
-              return this.$message.error('删除用户失败!')
+              return this.$message.error('删除分类信息失败!')
             }
-            this.$message.success('删除用户成功!')
+            this.$message.success('删除分类信息成功!')
             // 重新获取用户列表
             this.getCateList()
           })

@@ -2,6 +2,7 @@ import axios from 'axios'
 import Vue from 'vue'
 axios.defaults.baseURL = `http://www.ysqorz.top:8888/api/private/v1/`
 // 'http://127.0.0.1:8888/api/private/v1/'
+// `http://www.ysqorz.top:8888/api/private/v1/`
 // 将axios方法注册到原型上方便全局使用
 // 设置请求拦截器
 axios.interceptors.request.use(config => {
