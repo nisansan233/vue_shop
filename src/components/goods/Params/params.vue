@@ -373,7 +373,15 @@ export default {
           this.$message.success('获取参数列表成功!')
 
           res.data.data.forEach(item => {
-            item.attr_vals = item.attr_vals ? item.attr_vals.split(',') : []
+            console.log( item.attr_vals);
+            item.attr_vals = item.attr_vals ? item.attr_vals.split(' ') : []
+            if(item.attr_vals.length===1){
+              item.attr_vals=item.attr_vals.join(' ')    
+              // console.log(typeof item.attr_vals);
+              // console.log( item.attr_vals);
+              item.attr_vals=item.attr_vals.split(',')
+              console.log('动态参数由逗号分隔,已重新分隔为数组'); 
+            }
             // 控制tag文本框的显示与隐藏
             item.inputVisible = false
             // tag文本框的输入值
@@ -490,7 +498,7 @@ export default {
         .put(`categories/${this.cateId}/attributes/${row.attr_id}`, {
           attr_name: row.attr_name,
           attr_sel: row.attr_sel,
-          attr_vals: row.attr_vals.join(',')
+          attr_vals: row.attr_vals.join(' ')
         })
         .then(res => {
           if (res.data.meta.status != 200) {

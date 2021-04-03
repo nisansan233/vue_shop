@@ -364,7 +364,7 @@ export default {
     // 根据ID删除分类
     removeCateById(id){
        // 弹框确认是否删除
-       const result=this.$confirm(
+       this.$confirm(
         '此操作将永久删除该分类信息, 是否继续?',
         '提示',
         {
