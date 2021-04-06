@@ -25,7 +25,7 @@
 
 <style lang="less" scoped>
    .el-header {
-    background-color: #373d41;
+    background-color: #1A4968CE;
     display: flex;
     justify-content: space-between;
     padding-left: 0;

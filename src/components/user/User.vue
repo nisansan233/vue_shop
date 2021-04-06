@@ -206,11 +206,11 @@ export default {
             message: '请输入邮箱',
             trigger: 'blur',
           },
-          {
-            type: 'email',
-            message: '请输入正确的邮箱地址',
-            trigger: ['blur', 'change'],
-          },
+          // {
+          //   type: 'email',
+          //   message: '请输入正确的邮箱地址',
+          //   trigger: ['blur', 'change'],
+          // },
         ],
         mobile: [
           {
@@ -218,10 +218,10 @@ export default {
             message: '请输入手机',
             trigger: 'blur',
           },
-          {
-            validator: checkMobile,
-            trigger: 'blur',
-          },
+          // {
+          //   validator: checkMobile,
+          //   trigger: 'blur',
+          // },
         ],
       },
       // 控制修改用户对话框的显示与隐藏
@@ -363,7 +363,10 @@ export default {
           }
           this.$axios.delete('users/' + id).then((res) => {
             if (res.data.meta.status != 200) {
-              return this.$message.error('删除用户失败!')
+              return this.$message.error({
+              message: res.data.meta.msg,
+              duration:1000,
+              })
             }
             this.$message.success('删除用户成功!')
             // 重新获取用户列表
@@ -377,9 +380,15 @@ export default {
       // 显示对话框前获取角色列表
       this.$axios.get('roles').then((res) => {
         if (res.data.meta.status != 200) {
-          return this.$message.erroe('获取角色列表失败!')
+          return this.$message.error({
+          message: res.data.meta.msg,
+          duration:1000,
+          })
         }
-        this.$message.success('获取角色列表成功!')
+        this.$message.success({
+        message:'获取角色列表成功',
+        duration:1000,
+        })
         this.rolesList = res.data.data
       })
       this.setRoleDialogVisible = true
@@ -387,7 +396,10 @@ export default {
     // 分配角色
     saveRoleInfo() {
       if (!this.selectedRoleId) {
-        return this.$message.error('请选择要分配的角色!')
+        return this.$message.error({
+        message: res.data.meta.msg,
+        duration:1000,
+        })
       }
       this.$axios
         .put(`users/${this.userInfo.id}/role`, {
@@ -396,7 +408,10 @@ export default {
         .then((res) => {
           if (res.data.meta.status != 200) {
             console.log(res)
-            return this.$message.error('分配角色失败!')
+            return this.$message.error({
+            message: res.data.meta.msg,
+            duration:1000,
+            })
           }
           this.$message.success('分配角色成功')
           this.getUserList()

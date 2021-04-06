@@ -276,7 +276,7 @@ export default {
         expandTrigger: 'hover',
         value: 'cat_id',
         label: 'cat_name',
-        children: 'children'
+        children: 'children',
       },
       // 级联选择框双向绑定的数组
       selectdCateKeys: [],
@@ -290,7 +290,7 @@ export default {
       addDialogVisible: false,
       // 添加参数的表单数据对象
       addForm: {
-        attr_name: ''
+        attr_name: '',
       },
       // 添加参数的表单数据的验证规则对象
       addFormRules: {
@@ -298,9 +298,9 @@ export default {
           {
             required: true,
             message: '请输入参数名称',
-            trigger: 'blur'
-          }
-        ]
+            trigger: 'blur',
+          },
+        ],
       },
       // 控制修改对话框的显示与隐藏
       editDialogVisible: false,
@@ -312,18 +312,18 @@ export default {
           {
             required: true,
             message: '请输入参数名称',
-            trigger: 'blur'
-          }
-        ]
+            trigger: 'blur',
+          },
+        ],
       },
       // 控制按钮与tag文本框的切换显示
       inputVisible: false,
       // 文本框中输入的内容
-      inputValue: ''
+      inputValue: '',
     }
   },
   components: {
-    Breadcrumb
+    Breadcrumb,
   },
 
   created() {
@@ -331,9 +331,12 @@ export default {
   },
   methods: {
     getCateList() {
-      this.$axios.get('categories').then(res => {
+      this.$axios.get('categories').then((res) => {
         if (res.data.meta.status != 200) {
-          return this.$message.error('获取商品分类失败!')
+          return this.$message.error({
+          message: res.data.meta.msg,
+          duration:1000,
+          })
         }
         this.cateList = res.data.data
         // console.log(this.cateList)
@@ -353,8 +356,8 @@ export default {
       // 选中的不是三级分类
       if (this.selectdCateKeys.length !== 3) {
         this.selectdCateKeys = []
-        this.manyTableData=[]
-        this.onlyTableData=[]
+        this.manyTableData = []
+        this.onlyTableData = []
         return
       }
       // 选中的是三级分类
@@ -363,25 +366,28 @@ export default {
       this.$axios
         .get(`categories/${this.cateId}/attributes`, {
           params: {
-            sel: this.activeName
-          }
+            sel: this.activeName,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.data.meta.status != 200) {
-            return this.$message.error('获取参数列表失败!')
+            return this.$message.error({
+            message: res.data.meta.msg,
+            duration:1000,
+            })
           }
           this.$message.success('获取参数列表成功!')
 
-          res.data.data.forEach(item => {
-            console.log( item.attr_vals);
+          res.data.data.forEach((item) => {
+            console.log(item.attr_vals)
             item.attr_vals = item.attr_vals ? item.attr_vals.split(' ') : []
-            if(item.attr_vals.length===1){
-              item.attr_vals=item.attr_vals.join(' ')    
+           /*  if (item.attr_vals.length === 1) {
+              item.attr_vals = item.attr_vals.join(' ')
               // console.log(typeof item.attr_vals);
               // console.log( item.attr_vals);
-              item.attr_vals=item.attr_vals.split(',')
-              console.log('动态参数由逗号分隔,已重新分隔为数组'); 
-            }
+              item.attr_vals = item.attr_vals.split(',')
+              console.log('动态参数由逗号分隔,已重新分隔为数组')
+            } */
             // 控制tag文本框的显示与隐藏
             item.inputVisible = false
             // tag文本框的输入值
@@ -401,16 +407,20 @@ export default {
     },
     // 监听添加参数事件
     addParams() {
-      this.$refs.addFormRef.validate(validate => {
+      this.$refs.addFormRef.validate((validate) => {
         if (!validate) return
         this.$axios
           .post(`categories/${this.cateId}/attributes`, {
             attr_name: this.addForm.attr_name,
-            attr_sel: this.activeName
+            attr_sel: this.activeName,
           })
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status != 201) {
-              return this.$message.error('添加参数失败!')
+              console.log(res.data);
+              return this.$message.error({
+              message: res.data.meta.msg,
+              duration:1000,
+              })
             }
             this.$message.success('添加参数成功!')
             this.addDialogVisible = false
@@ -428,12 +438,16 @@ export default {
       this.$axios
         .get(`categories/${this.cateId}/attributes/${id}`, {
           params: {
-            attr_sel: this.activeName
-          }
+            attr_sel: this.activeName,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.data.meta.status != 200) {
-            return this.$message.error('获取参数信息失败!')
+            console.log(res.data);
+            return this.$message.error({
+            message: res.data.meta.msg,
+            duration:1000,
+            })
           }
 
           this.editForm = res.data.data
@@ -442,21 +456,28 @@ export default {
     },
     // 点击按钮,修改参数信息
     editParams() {
-      this.$refs.editFormRef.validate(valid => {
+      this.$refs.editFormRef.validate((valid) => {
         if (!valid) return
         this.$axios
           .put(
             `categories/${this.cateId}/attributes/${this.editForm.attr_id}`,
             {
               attr_name: this.editForm.attr_name,
-              attr_sel: this.activeName
+              attr_sel: this.activeName,
             }
           )
-          .then(res => {
+          .then((res) => {
             if (res.data.meta.status != 200) {
-              return this.$message.error('修改参数信息失败!')
+              console.log(res.data);
+              return this.$message.error({
+                message: res.data.meta.msg,
+                duration: 1000,
+              })
             }
-            this.$message.success('修改参数信息成功!')
+            this.$message.success({
+              message: '修改参数成功',
+              duration: 1000,
+            })
             this.getParamsData()
             this.editDialogVisible = false
           })
@@ -471,20 +492,23 @@ export default {
         {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
-          type: 'warning'
+          type: 'warning',
         }
       )
-        .catch(err => err)
-        .then(res => {
+        .catch((err) => err)
+        .then((res) => {
           // 如果用户确认删除，则返回字符串confirm
           if (res !== 'confirm') {
             return this.$message.info('已取消删除!')
           }
           this.$axios
             .delete(`categories/${this.cateId}/attributes/${id}`)
-            .then(result => {
+            .then((result) => {
               if (result.data.meta.status != 200) {
-                return this.$message.error('删除参数信息失败!')
+                return this.$message.error({
+                message: res.data.meta.msg,
+                duration:1000,
+                })
               }
               this.$message.success('删除参数信息成功!')
               // 重新获取用户列表
@@ -492,17 +516,20 @@ export default {
             })
         })
     },
-    saveAttrVals(row){
-       // 发起网络请求保存参数
+    saveAttrVals(row) {
+      // 发起网络请求保存参数
       this.$axios
         .put(`categories/${this.cateId}/attributes/${row.attr_id}`, {
           attr_name: row.attr_name,
           attr_sel: row.attr_sel,
-          attr_vals: row.attr_vals.join(' ')
+          attr_vals: row.attr_vals.join(' '),
         })
-        .then(res => {
+        .then((res) => {
           if (res.data.meta.status != 200) {
-            return this.$message.error('修改参数项失败!')
+            return this.$message.error({
+            message: res.data.meta.msg,
+            duration:1000,
+            })
           }
           this.$message.success('修改参数项成功!')
         })
@@ -519,23 +546,23 @@ export default {
       row.attr_vals.push(row.inputValue.trim())
       row.inputValue = ''
       row.inputVisible = false
-     this.saveAttrVals(row)
+      this.saveAttrVals(row)
     },
-    
+
     // 点击按钮展示tag文本框
     showInput(row) {
       row.inputVisible = true
       // 让tag文本框自动获得焦点
       // $nextTick当页面上的元素重新渲染之后,才会指定回调代码
-      this.$nextTick(_ => {
+      this.$nextTick((_) => {
         this.$refs.saveTagInput.$refs.input.focus()
       })
     },
     // 删除对应的参数可选项
-    handleClose(i,row){
-      row.attr_vals.splice(i,1)
+    handleClose(i, row) {
+      row.attr_vals.splice(i, 1)
       this.saveAttrVals(row)
-    }
+    },
   },
   computed: {
     // 如果按钮需要被禁用,则返回true,否则返回false
@@ -557,8 +584,8 @@ export default {
       } else {
         return '静态属性'
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -1,9 +1,9 @@
 <template>
 
   <el-aside width="isCollapse ? '64px' : '200px'">
-    <div class="toggle-button" @click="toggleCollapse">|||</div>
+    <div class="toggle-button" @click="toggleCollapse" background-color="3b53a5">|||</div>
     <!-- 侧边栏菜单区域 -->
-    <el-menu background-color="#333744" text-color="#fff" active-text-color="#39C5BB" :unique-opened="true"
+    <el-menu background-color="#1A4968CE" text-color="#fff" active-text-color="#39C5BB" :unique-opened="true"
       :collapse="isCollapse" :collapse-transition="false" :router="true" :default-active="this.$route.path">
       <!-- 一级菜单 -->
       <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
@@ -16,7 +16,7 @@
         </template>
 
         <!-- 二级菜单 -->
-        <el-menu-item :index="'/'+subItem.path  " v-for="subItem in item.children" :key="subItem.id">
+        <el-menu-item :index="'/'+subItem.path  " v-for="subItem in item.children" :key="subItem.id" >
           <template slot="title">
             <!-- 图标 -->
             <i class="el-icon-menu"></i>
@@ -46,13 +46,14 @@
           '102': 'iconfont icon-danju',
           '145': 'iconfont icon-baobiao',
         },
-        isCollapse: false
-
+        isCollapse: false,
+        activePath: '/welcome',
 
       }
     },
     created() {
       this.getMenuList()
+      this.activePath=window.sessionStorage.getItem('activePath')
     },
     methods: {
       // 获取所有的菜单
@@ -69,17 +70,19 @@
         this.isCollapse = !this.isCollapse
       },
       //保存链接的激活状态
-      // saveNavState(activePath){
-      //   window.sessionStorage.setItem('activePath',activePath)
-      // }
+      saveNavState(activePath){
+        window.sessionStorage.setItem('activePath',activePath)
+        this.activePath=activePath
+      }
     },
+  
   }
 
 </script>
 
 <style lang="less" scoped>
   .el-aside {
-    background-color: #333744;
+    background-color: #7f9cfc;
 
     .el-menu {
       border-right: none;
@@ -87,7 +90,7 @@
   }
 
   .toggle-button {
-    background-color: #4A5064;
+    background-color: #6377b8;
     font-size: 10px;
     line-height: 24px;
     color: #fff;

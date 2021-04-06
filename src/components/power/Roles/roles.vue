@@ -7,11 +7,18 @@
       <!-- 添加角色按钮区域 -->
       <el-row>
         <el-col>
-          <el-button type="primary" @click="addRoleVisible=true">添加角色</el-button>
+          <el-button
+            type="primary"
+            @click="addRoleVisible=true"
+          >添加角色</el-button>
         </el-col>
       </el-row>
       <!-- 角色列表区域 -->
-      <el-table :data="roleList" :border="true" :stripe="true">
+      <el-table
+        :data="roleList"
+        :border="true"
+        :stripe="true"
+      >
         <!-- 展开列 -->
         <el-table-column type="expand">
           <template v-slot="scope">
@@ -59,10 +66,22 @@
           </template>
         </el-table-column>
         <!-- 索引列 -->
-        <el-table-column label="#" type="index"></el-table-column>
-        <el-table-column label="角色名称" prop="roleName"></el-table-column>
-        <el-table-column label="角色描述" prop="roleDesc"></el-table-column>
-        <el-table-column label="操作" width="300px">
+        <el-table-column
+          label="#"
+          type="index"
+        ></el-table-column>
+        <el-table-column
+          label="角色名称"
+          prop="roleName"
+        ></el-table-column>
+        <el-table-column
+          label="角色描述"
+          prop="roleDesc"
+        ></el-table-column>
+        <el-table-column
+          label="操作"
+          width="300px"
+        >
           <template v-slot="scope">
             <!-- 修改按钮 -->
             <el-button
@@ -89,38 +108,80 @@
       </el-table>
     </el-card>
     <!-- 添加角色的对话框 -->
-    <el-dialog title="添加角色" :visible.sync="addRoleVisible" width="50%" @close="addDialogClosed">
+    <el-dialog
+      title="添加角色"
+      :visible.sync="addRoleVisible"
+      width="50%"
+      @close="addDialogClosed"
+    >
       <!-- 内容主题区域 -->
-      <el-form :model="addRoleForm" ref="addFormRef" label-width="70px">
-        <el-form-item label="角色名称" prop="roleName">
+      <el-form
+        :model="addRoleForm"
+        ref="addFormRef"
+        label-width="70px"
+      >
+        <el-form-item
+          label="角色名称"
+          prop="roleName"
+        >
           <el-input v-model="addRoleForm.roleName"></el-input>
         </el-form-item>
-        <el-form-item label="角色描述" prop="roleDesc">
+        <el-form-item
+          label="角色描述"
+          prop="roleDesc"
+        >
           <el-input v-model="addRoleForm.roleDesc"></el-input>
         </el-form-item>
       </el-form>
       <!-- 底部区域 -->
-      <span slot="footer" class="dialog-footer">
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
         <el-button @click="addRoleVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addRole">确 定</el-button>
+        <el-button
+          type="primary"
+          @click="addRole"
+        >确 定</el-button>
       </span>
     </el-dialog>
 
     <!-- 修改角色的对话框 -->
-    <el-dialog title="修改角色" :visible.sync="editRoleVisible" width="50%" @close="editDialogClosed">
+    <el-dialog
+      title="修改角色"
+      :visible.sync="editRoleVisible"
+      width="50%"
+      @close="editDialogClosed"
+    >
       <!-- 内容主题区域 -->
-      <el-form :model="editRoleForm" ref="editFormRef" label-width="70px">
-        <el-form-item label="角色名称" prop="roleName">
+      <el-form
+        :model="editRoleForm"
+        ref="editFormRef"
+        label-width="70px"
+      >
+        <el-form-item
+          label="角色名称"
+          prop="roleName"
+        >
           <el-input v-model="editRoleForm.roleName"></el-input>
         </el-form-item>
-        <el-form-item label="角色描述" prop="roleDesc">
+        <el-form-item
+          label="角色描述"
+          prop="roleDesc"
+        >
           <el-input v-model="editRoleForm.roleDesc"></el-input>
         </el-form-item>
       </el-form>
       <!-- 底部区域 -->
-      <div slot="footer" class="dialog-footer">
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
         <el-button @click="editRoleVisible = false">取 消</el-button>
-        <el-button type="primary" @click="editRoleInfo">确 定</el-button>
+        <el-button
+          type="primary"
+          @click="editRoleInfo"
+        >确 定</el-button>
       </div>
     </el-dialog>
 
@@ -141,9 +202,15 @@
         :default-checked-keys="defKeys"
         ref="treeRef"
       ></el-tree>
-      <span slot="footer" class="dialog-footer">
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
         <el-button @click="setRightDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="allotRight()">确 定</el-button>
+        <el-button
+          type="primary"
+          @click="allotRight()"
+        >确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -191,11 +258,13 @@ export default {
   methods: {
     // 获取所有角色列表
     getRoleList() {
-     this.$axios.get('roles').then((res) => {
+      this.$axios.get('roles').then((res) => {
         if (res.data.meta.status != 200) {
-          return this.$message.erroe('获取角色列表失败!')
-        } 
-        this.$message.success('获取角色列表成功!')
+          return this.$message.erroe({
+          message: res.data.meta.msg,
+          duration: 1500,
+        })
+        }
         this.roleList = res.data.data
       })
     },
@@ -225,7 +294,10 @@ export default {
     showEditDialog(id) {
       this.$axios.get('roles/' + id).then((res) => {
         if (res.data.meta.status != 200) {
-          return this.$message.error('查询角色信息失败!')
+          return this.$message.error({
+            message: res.data.meta.msg,
+            duration: 1500,
+          })
         }
         this.editRoleForm = res.data.data
         this.editRoleVisible = true
@@ -237,9 +309,15 @@ export default {
         .put('roles/' + this.editRoleForm.roleId, this.editRoleForm)
         .then((res) => {
           if (res.data.meta.status != 200) {
-            return this.$message.error('修改角色信息失败!')
+            return this.$message.error({
+              message: res.data.meta.msg,
+              duration: 1500,
+            })
           }
-          this.$message.success('修改角色信息成功!')
+          this.$message.success({
+            message: '编辑角色信息成功!',
+            duration: 1500,
+          })
           this.editRoleVisible = false
           this.getRoleList()
         })
@@ -260,13 +338,22 @@ export default {
         .then((res) => {
           // 如果用户确认删除，则返回字符串confirm
           if (res !== 'confirm') {
-            return this.$message.info('已取消删除!')
+            return this.$message.info({
+              message: '已取消删除',
+              duration: 1500,
+            })
           }
           this.$axios.delete('roles/' + id).then((res) => {
             if (res.data.meta.status != 200) {
-              return this.$message.error('删除角色失败!')
+              return this.$message.error({
+                message: res.data.meta.msg,
+                duration: 1500,
+              })
             }
-            this.$message.success('删除角色成功!')
+            this.$message.success({
+              message: '删除角色成功！',
+              duration: 1500,
+            })
             this.getRoleList()
           })
         })
@@ -281,14 +368,23 @@ export default {
         .catch((err) => err)
         .then((res) => {
           if (res !== 'confirm') {
-            return this.$message.info('已取消删除权限!')
+            return this.$message.info({
+              message: '已取消删除',
+              duration: 1500,
+            })
           }
           this.$axios
             .delete(`roles/${role.id}/rights/${rightId}`)
             .then((result) => {
               if (result.data.meta.status != 200)
-                return this.$message.error('删除权限失败!')
-              this.$message.success('删除权限成功!')
+                return this.$message.error({
+                  message: result.data.meta.msg,
+                  duration: 1500,
+                })
+              this.$message.success({
+                message: '删除成功!',
+                duration: 1500,
+              })
               role.children = result.data.data
             })
         })
@@ -299,7 +395,10 @@ export default {
       // 获取所有权限的数据
       this.$axios.get('rights/tree').then((res) => {
         if (res.data.meta.status != 200) {
-          return this.$message.error('获取权限失败!')
+          return this.$message.error({
+            message: res.data.meta.msg,
+            duration: 1500,
+          })
         }
         // 获取到的权限数据保存到data中
         this.rightsList = res.data.data
@@ -327,17 +426,25 @@ export default {
         ...this.$refs.treeRef.getCheckedKeys(),
         ...this.$refs.treeRef.getHalfCheckedKeys(),
       ]
-      console.log(keys);
+      console.log(keys)
       const idStr = keys.join(',')
-      this.$axios.post(`roles/${this.roleId}/rights`, {rids: idStr }).then(res=>{
-        if(res.data.meta.status != 200){
-          console.log(res);
-          return this.$message.error('分配权限失败!')
-        }
-        this.$message.success('分配权限成功!')
-        this.getRoleList()
-        this.setRightDialogVisible=false
-      })
+      this.$axios
+        .post(`roles/${this.roleId}/rights`, { rids: idStr })
+        .then((res) => {
+          if (res.data.meta.status !== 200) {
+            console.log(res)
+            return this.$message.error({
+              message: res.data.meta.msg,
+              duration: 1500,
+            })
+          }
+          this.$message.success({
+            message: '分配权限成功',
+            duration: 1000,
+          })
+          this.getRoleList()
+          this.setRightDialogVisible = false
+        })
     },
   },
 }

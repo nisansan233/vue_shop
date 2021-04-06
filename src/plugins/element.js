@@ -37,7 +37,8 @@ import {
   Checkbox,
   Upload,
   Timeline,
-  TimelineItem
+  TimelineItem,
+  Notification,
 } from 'element-ui'
 
 // 导入弹框提示组件
@@ -83,5 +84,7 @@ Vue.use(CheckboxGroup)
 Vue.use(Upload)
 Vue.use(Timeline)
 Vue.use(TimelineItem)
+Vue.use(Notification)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm= MessageBox.confirm
+Vue.prototype.$notify = Notification
