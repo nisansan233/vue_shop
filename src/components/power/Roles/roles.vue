@@ -18,6 +18,7 @@
         :data="roleList"
         :border="true"
         :stripe="true"
+        row-key="id"
       >
         <!-- 展开列 -->
         <el-table-column type="expand">
@@ -277,9 +278,16 @@ export default {
       // 无需校验格式,直接发起添加用户的网络请求
       this.$axios.post('roles', this.addRoleForm).then((res) => {
         if (res.data.meta.status != 201) {
-          this.$message.error('添加用户失败!')
+          this.$message.error({
+          message: res.data.meta.msg,
+          duration:1000,
+          })
         }
-        this.$message.success('添加用户成功!')
+        this.$message.success({
+        message:'添加角色成功!',
+        duration:1000,
+        })
+        
         // 隐藏添加用户的对话框
         this.addRoleVisible = false
         // 重新获取用户列表

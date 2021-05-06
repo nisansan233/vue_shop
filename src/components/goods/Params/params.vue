@@ -334,8 +334,8 @@ export default {
       this.$axios.get('categories').then((res) => {
         if (res.data.meta.status != 200) {
           return this.$message.error({
-          message: res.data.meta.msg,
-          duration:1000,
+            message: res.data.meta.msg,
+            duration: 1000,
           })
         }
         this.cateList = res.data.data
@@ -372,8 +372,8 @@ export default {
         .then((res) => {
           if (res.data.meta.status != 200) {
             return this.$message.error({
-            message: res.data.meta.msg,
-            duration:1000,
+              message: res.data.meta.msg,
+              duration: 1000,
             })
           }
           this.$message.success('获取参数列表成功!')
@@ -381,13 +381,13 @@ export default {
           res.data.data.forEach((item) => {
             console.log(item.attr_vals)
             item.attr_vals = item.attr_vals ? item.attr_vals.split(' ') : []
-           /*  if (item.attr_vals.length === 1) {
+             if (item.attr_vals.length === 1) {
               item.attr_vals = item.attr_vals.join(' ')
               // console.log(typeof item.attr_vals);
               // console.log( item.attr_vals);
               item.attr_vals = item.attr_vals.split(',')
               console.log('动态参数由逗号分隔,已重新分隔为数组')
-            } */
+            }
             // 控制tag文本框的显示与隐藏
             item.inputVisible = false
             // tag文本框的输入值
@@ -416,10 +416,10 @@ export default {
           })
           .then((res) => {
             if (res.data.meta.status != 201) {
-              console.log(res.data);
+              console.log(res.data)
               return this.$message.error({
-              message: res.data.meta.msg,
-              duration:1000,
+                message: res.data.meta.msg,
+                duration: 1000,
               })
             }
             this.$message.success('添加参数成功!')
@@ -427,10 +427,6 @@ export default {
             this.getParamsData()
           })
       })
-    },
-    // 重置修改的表单
-    editDialogClosed() {
-      this.$refs.editFormRef.resetFields()
     },
     // 点击按钮,展示修改对话框
     showEditDialog(id) {
@@ -442,17 +438,22 @@ export default {
           },
         })
         .then((res) => {
-          if (res.data.meta.status != 200) {
-            console.log(res.data);
+          if (res.data.meta.status !== 200) {
+            console.log(res.data)
             return this.$message.error({
-            message: res.data.meta.msg,
-            duration:1000,
+              message: res.data.meta.msg,
+              duration: 1000,
             })
           }
-
+          console.log(res.data)
           this.editForm = res.data.data
         })
       this.editDialogVisible = true
+    },
+     
+    // 重置修改的表单
+    editDialogClosed() {
+      this.$refs.editFormRef.resetFields()
     },
     // 点击按钮,修改参数信息
     editParams() {
@@ -468,7 +469,7 @@ export default {
           )
           .then((res) => {
             if (res.data.meta.status != 200) {
-              console.log(res.data);
+              console.log(res.data)
               return this.$message.error({
                 message: res.data.meta.msg,
                 duration: 1000,
@@ -506,8 +507,8 @@ export default {
             .then((result) => {
               if (result.data.meta.status != 200) {
                 return this.$message.error({
-                message: res.data.meta.msg,
-                duration:1000,
+                  message: res.data.meta.msg,
+                  duration: 1000,
                 })
               }
               this.$message.success('删除参数信息成功!')
@@ -527,8 +528,8 @@ export default {
         .then((res) => {
           if (res.data.meta.status != 200) {
             return this.$message.error({
-            message: res.data.meta.msg,
-            duration:1000,
+              message: res.data.meta.msg,
+              duration: 1000,
             })
           }
           this.$message.success('修改参数项成功!')

@@ -4,8 +4,8 @@
       <!-- 头像区域 -->
       <div class="avater_box">
         <img
-          src="~assets/logo.png"
-          alt=""
+          src="~assets/logo.svg"
+          alt="无法正常加载图片"
         />
       </div>
       <!-- 登录表单区域 -->
@@ -87,25 +87,25 @@ export default {
           },
         ],
       },
-      // 消息框
-      notify: null,
-      // 账户西西里
-      profileInfo: null,
+      // // 消息框
+      // notify: null,
+      // // 账户西西里
+      // profileInfo: null,
     }
   },
   created() {
-    this.notify = this.$notify({
-      title: '欢迎您',
-      message: '初始用户名：admin </br> 初始密码：123456',
-      type: 'success',
-      dangerouslyUseHTMLString: true,
-      offset: 100,
-      duration: 5000,
-    })
+    // this.notify = this.$notify({
+    //   title: '欢迎您',
+    //   message: '初始用户名：admin </br> 初始密码：123456',
+    //   type: 'success',
+    //   dangerouslyUseHTMLString: true,
+    //   offset: 100,
+    //   duration: 5000,
+    // })
   },
   destroyed() {
     // 组件销毁时关闭提示框
-    this.notify.close()
+    // this.notify.close()
   },
   methods: {
     // 点击重置按钮,重置登录表单

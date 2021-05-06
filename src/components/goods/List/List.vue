@@ -34,6 +34,54 @@
         :border="true"
         :stripe="true"
       >
+        <!-- 展开行 -->
+        <el-table-column type="expand">
+          <template slot-scope="props">
+            <!-- {{scope.row}} -->
+            <el-form
+              label-position="left"
+              inline
+              class="demo-table-expand"
+            >
+              <el-form-item label="商品名称">
+                <span>{{ props.row.goods_name }}</span>
+              </el-form-item>
+              <el-form-item label="价格">
+                <span>{{ props.row.goods_price + '.00' }}</span>
+              </el-form-item>
+              <el-form-item label="库存">
+                <span>{{ props.row.goods_number }}</span>
+              </el-form-item>
+              <el-form-item label="重量">
+                <span>{{ props.row.goods_weight }}</span>
+              </el-form-item>
+              <el-form-item label="商品状态">
+                <span>已审核</span>
+              </el-form-item>
+              <el-form-item label="添加时间">
+                <span>{{ props.row.add_time | dateFormat }}</span>
+              </el-form-item>
+              <el-form-item label="更新时间">
+                <span>{{ props.row.upd_time | dateFormat }}</span>
+              </el-form-item>
+              <el-form-item label="是否是热销品">
+                <i
+                  style="color:green;font-size:18px;"
+                  v-if="props.row.is_promote"
+                  class="el-icon-success"
+                ></i>
+                <i
+                  style="color:red;font-size:18px;"
+                  v-else
+                  class="el-icon-error"
+                ></i>
+              </el-form-item>
+              <el-form-item label="热销品数量">
+                <span>{{ props.row.hot_mumber }}</span>
+              </el-form-item>
+            </el-form>
+          </template>
+        </el-table-column>
         <el-table-column
           type="index"
           label="#"
@@ -48,7 +96,7 @@
           width="95px"
         ></el-table-column>
         <el-table-column
-          label="商品重量"
+          label="商品重量(克)"
           prop="goods_weight"
           width="80px"
         ></el-table-column>
@@ -58,12 +106,12 @@
           width="145px"
         >
           <template v-slot='scope'>
-            {{scope.row.add_time | dataFormat}}
+            {{scope.row.add_time | dateFormat}}
           </template>
         </el-table-column>
         <el-table-column
           label="操作"
-          width="135px"
+          width="180px"
         >
           <template v-slot="scope">
             <el-button
@@ -71,13 +119,13 @@
               icon="el-icon-edit"
               size="mini"
               @click="editGoods(scope.row)"
-            ></el-button>
+            >编辑</el-button>
             <el-button
               type="danger"
               icon="el-icon-delete"
               size="mini"
               @click="removeById(scope.row.goods_id)"
-            ></el-button>
+            >删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -205,7 +253,7 @@ export default {
           console.log(res.data.data)
           this.goodsList = res.data.data.goods
           this.total = res.data.data.total
-          console.log(this.queryInfo.query)
+          console.log(this.goodsList)
         })
     },
     handleSizeChange(newSize) {
@@ -300,4 +348,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.demo-table-expand {
+  font-size: 0;
+}
+.demo-table-expand label {
+  width: 120px;
+  color: #99a9bf;
+}
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 80%;
+}
 </style>

@@ -57,7 +57,7 @@ export default {
   },
   created() {},
   async mounted() {
-    // 基于渲染好的dom,初始化echarts实例
+    // 基于渲染好的dom,初始化echarts实例,参数dom决定图表的最终呈现位置
     var myChart = echarts.init(document.getElementById('main'))
 
     // 4.准备数据和配置项
@@ -70,7 +70,7 @@ export default {
     }
 
     const result=_.merge(res.data, this.options)
-    // 展示数据
+    // 将配置项设置给echarts实例对象,展示数据
     myChart.setOption(result)
   },
   methods: {},
